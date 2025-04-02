@@ -89,13 +89,15 @@
    "metadata": {},
    "outputs": [],
    "source": [
-    "indicadores = {\"NY.GDP.MKTP.CD\": \"Producto Interno Bruto (PIB) en USD\", \"NY.GDP.MKTP.KD.ZG\": \"Tasa de Crecimiento del PIB (%)\"}\n",
+     "indicadores = {\"NY.GDP.MKTP.CD\": \"Producto Interno Bruto (PIB) en millones USD\", \"NY.GDP.MKTP.KD.ZG\": \"Tasa de Crecimiento del PIB (%)\"}\n",
     "\n",
     "data = wbdata.get_dataframe(indicadores, country=['AR','UY'], date=(\"2010\",\"2023\"))\n",
     "\n",
     "df = pd.DataFrame(data=data)\n",
+    "df[\"Producto Interno Bruto (PIB) en millones USD\"]=df[\"Producto Interno Bruto (PIB) en millones USD\"]/1000000 ## Dividimos el valor por un millón\n",
+    "df[\"Producto Interno Bruto (PIB) en millones USD\"]=df[\"Producto Interno Bruto (PIB) en millones USD\"].apply(round) ## Redondeamos\n",
     "df = df.reset_index()\n",
-    "df.to_excel('data.xlsx', index=False)"
+    "df.to_excel('data.xlsx', index=False) ## Exportamos los datos del dataframe en un excel llamado data."
    ]
   },
   {
